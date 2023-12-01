@@ -72,11 +72,11 @@ low
 hi
 ```
 
-The very low p-values in the chi-squared test and fisher exact test(1.098x10^-13 and 4.631x10^-14 respectively) indicate that the difference in infection rates is indeed statistically significant which means the drug is effective at reducing infection rates in males and allows us to reject the null hypothesis. The effectiveness interval for the vaccine in males of 64%-74% is above the approximate 50% threshold that is desired for vaccine effectiveness.
+The very low p-values in the chi-squared test and fisher exact test(1x10^-13 and 5x10^-14 respectively) indicate that the difference in infection rates is indeed statistically significant which means the drug is effective at reducing infection rates in males and allows us to reject the null hypothesis. The effectiveness interval for the vaccine in males of 64%-74% is above the approximate 50% threshold that is desired for vaccine effectiveness.
 
 ### Males Conclusion and Discussion
 
-
+Though the total number of infections prevented by the vaccine is relatively small it is deceptively effective, having a effectiveness interval of 64%-74% which indicates that it is a highly effective vaccine at preventing Covid-19 infections in the male population. This is confirmed by the very small p values obtained in the inferential data analysis that allowed for the rejection of the null hypothesis and the confirmation that the effectiveness interval is statistically significant.
 
 ## Females
 ### Females Graphical Data
@@ -124,7 +124,7 @@ The very low p-values in the chi-squared test and fisher exact test(.0003 and .0
 
 ### Females Conclusion and Discussion
 
-
+Though the total number of infections prevented by the vaccine in the female population is relatively small it is deceptively effective, having a effectiveness interval of 55%-65% which indicates that it is a highly effective vaccine at preventing Covid-19 infections in the female population, though notably slightly less effective than in the male population. This is confirmed by the very small p values obtained in the inferential data analysis that allowed for the rejection of the null hypothesis and the confirmation that the effectiveness interval is statistically significant. 
 
 ## LGBTQ
 ### LGBTQ Graphical Data
@@ -171,7 +171,7 @@ The very low p-values in the chi-squared test and fisher exact test(.00000007 an
 
 ### LGBTQ Conclusion and Discussion
 
-
+The vaccine in the LGBTQ sub-population appears to be completely ineffective to the point of potentially increasing infection rates; having a effectiveness interval of 7.6%-27% which indicates that it is an effective vaccine at preventing Covid-19 infections in the LGBTQ sub-population. This is confirmed by the very small p values obtained in the inferential data analysis that allowed for the rejection of the null hypothesis and the confirmation that the effectiveness interval is statistically significant.
 
 ## Druggies
 ### Druggies Graphical Data
@@ -214,9 +214,11 @@ low
 hi
 ```
 
+The very low p-values in the chi-squared test and fisher exact test(3x10^-9 and 2x10^-10 respectively) indicate that the difference in infection rates is indeed statistically significant which means the drug is likely ineffective at reducing infection rates in the drug user population and allows us to reject the null hypothesis. The effectiveness interval for the vaccine in the drug user population of 4.6%-22% is far below the approximate 50% threshold that is desired for vaccine effectiveness.
+
 ### Druggies Conclusion and Discussion
 
-
+The vaccine in the drug user sub-population appears to be completely ineffective to the point of potentially increasing infection rates; having a effectiveness interval of 4.6%-22% which indicates that it is an effective vaccine at preventing Covid-19 infections in the drug user sub-population. This is confirmed by the very small p values obtained in the inferential data analysis that allowed for the rejection of the null hypothesis and the confirmation that the effectiveness interval is statistically significant.
 
 # Overall Results and Conclusions
 
