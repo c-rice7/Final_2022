@@ -24,17 +24,199 @@ mutate(across(where(is.character), as.factor))
 
 A new  preventative vaccine (covid921) is under test in clinical trials. Given the nature of this vaccine it is suspected that the drug may exhibit different effectiveness across the variety of subpopulations tracked. Consider population subgroups by gender( guys and gals), drug use, and sexual orientation. Write a complete report that separately considers this drug for each subgroup and your recommendations as to whether people in the subgroup should take the vaccine. Structure your report in four sections each devoted to one of the four subgroups, use null and alternative hypothesis statements and correct statistical verbage when referencing p-values in conclusions.
 
+## General Methodology
+Each group will be separated by filtering the data to create subsets that only contain those that fit int the category, then statistical analysis will be run on the subsets for each category. Analysis will be a two way variable analysis of the category of whether or not they received the placebo vaccine versus whether or not they were infected with Covid-19. Analysis will be done with the help of the cat-cat helper file.
+
+$H_0$ There is no difference between the rate of infection between each of: Males, Females, LGBTQs, and Druggies who are given the placebo and those who are given the actual vaccine.
+$H_a$ There is a significant difference in infection rate between each of: Males, Females, LGBTQs, and Druggies who are given the placebo versus those who are given the actual vaccine.
+
 ## Males
+### Males Graphical Data
+```{r include=FALSE,echo=FALSE}
+Males <- FinalData %>% filter(sex=="M")
+
+Males$treatment <- factor(Males$treatment, levels = c("placebo", "vaccine"))
+```
+
+```{r echo=FALSE}
+barchartGC(~infected + treatment,data=Males)
+barchartGC(~infected + treatment,data=Males, type="percent")
+```
+
+Based on the graphical data there was approximately a 50% reduction in infection rates in the general male population who received the vaccine versus those who received the placebo. However the total reduction in infections was only slight overall despite the large percentage reduction since the baseline infection rate of those who received the placebo was small to begin with.
+
+### Males Numerical Data
+```{r echo=FALSE}
+table1 <- xtabs(~infected + treatment, data=Males)
+rowPerc(table1)
+colPerc(table1)
+```
+
+The somewhat large reduction in percent in infection rates of males between those who received the drug and those who received the placebo(1.1% of those given the actual vaccine were infected versus 2.5% of those who received the placebo) is a good initial indication that the vaccine effectively decreases overall infection rates of Covid-19 in males in concurrence with what was observed in the graphical data.
+
+### Males Inferential Data
+```{r echo=FALSE}
+chisq.test(table1)
+fisher.test(table1)
+
+
+fish <- fisher.test(table1)
+
+
+low=(fish$conf.int[1]/(fish$conf.int[1] + 1))*100
+hi=(fish$conf.int[2]/(fish$conf.int[2] + 1))*100
+options(digits=2)
+
+
+low
+hi
+```
+
+The very low p-values in the chi-squared test and fisher exact test(1.098x10^-13 and 4.631x10^-14 respectively) indicate that the difference in infection rates is indeed statistically significant which means the drug is effective at reducing infection rates in males and allows us to reject the null hypothesis. The effectiveness interval for the vaccine in males of 64%-74% is above the approximate 50% threshold that is desired for vaccine effectiveness.
+
+### Males Conclusion and Discussion
+
 
 
 ## Females
+### Females Graphical Data
+```{r include=FALSE,echo=FALSE}
+Females <- FinalData %>% filter(sex=="F")
+
+Females$treatment <- factor(Females$treatment, levels = c("placebo", "vaccine"))
+```
+
+```{r echo=FALSE}
+barchartGC(~infected + treatment,data=Females)
+barchartGC(~infected + treatment,data=Females, type="percent")
+```
+
+Similarly to the general male data set, in the general female population data set there was approximately a 50% reduction in infection rates in the general female population who received the vaccine versus those who received the placebo. However the total reduction in infections was only slight overall despite the large percentage reduction since the baseline infection rate of those who received the placebo was small to begin with.
+
+### Females Numerical Data
+```{r echo=FALSE}
+table1 <- xtabs(~infected + treatment, data=Females)
+rowPerc(table1)
+colPerc(table1)
+```
+
+The somewhat large reduction in percent in infection rates of females between those who received the drug and those who received the placebo(1.4% of those given the actual vaccine were infected versus 2% of those who received the placebo) is a good initial indication that the vaccine effectively decreases overall infection rates of Covid-19 in females in concurrence with what was observed in the graphical data. Though the percent reduction in infection rates is noticeably lower than the reduction seen in the male data set.
+
+### Females Inferential Data
+```{r echo=FALSE}
+chisq.test(table1)
+fisher.test(table1)
+
+
+fish <- fisher.test(table1)
+
+
+low=(fish$conf.int[1]/(fish$conf.int[1] + 1))*100
+hi=(fish$conf.int[2]/(fish$conf.int[2] + 1))*100
+options(digits=2)
+
+
+low
+hi
+```
+
+The very low p-values in the chi-squared test and fisher exact test(.0003 and .0002 respectively) indicate that the difference in infection rates is indeed statistically significant which means the drug is effective at reducing infection rates in females and allows us to reject the null hypothesis. The effectiveness interval for the vaccine in females of 55%-65% is just above the approximate 50% threshold that is desired for vaccine effectiveness.
+
+### Females Conclusion and Discussion
+
 
 
 ## LGBTQ
+### LGBTQ Graphical Data
+```{r include=FALSE,echo=FALSE}
+LGBTQs <- FinalData %>% filter(LGBTQ=="gay")
+
+LGBTQs$treatment <- factor(LGBTQs$treatment, levels = c("placebo", "vaccine"))
+```
+
+```{r echo=FALSE}
+barchartGC(~infected + treatment,data=LGBTQs)
+barchartGC(~infected + treatment,data=LGBTQs, type="percent")
+```
+
+In the LGBTQ data set there was a noticeable difference to the two data sets of the male and female genders. The LGBTQ data set actually show an increase in Covid-19 infection rates in those who received the vaccine. However similarly to the gender based data sets the total numerical difference in infection rates is very small despite being a large percentage difference.
+
+### LGBTQ Numerical Data
+```{r echo=FALSE}
+table1 <- xtabs(~infected + treatment, data=LGBTQs)
+rowPerc(table1)
+colPerc(table1)
+```
+
+The somewhat large increase in percent in infection rates within the LGBTQ sub-population between those who received the drug and those who received the placebo(3.5% of those given the actual vaccine were infected versus 0.66% of those who received the placebo) is a very poor initial indication that the vaccine effectively decreases overall infection rates of Covid-19 in the LGBTQ sub-population in concurrence with what was observed in the graphical data.
+
+### LGBTQ Inferential Data
+```{r echo=FALSE}
+chisq.test(table1)
+fisher.test(table1)
+
+
+fish <- fisher.test(table1)
+
+
+low=(fish$conf.int[1]/(fish$conf.int[1] + 1))*100
+hi=(fish$conf.int[2]/(fish$conf.int[2] + 1))*100
+options(digits=2)
+
+low
+hi
+```
+
+The very low p-values in the chi-squared test and fisher exact test(.00000007 and .00000001 respectively) indicate that the difference in infection rates is indeed statistically significant which means the drug is likely ineffective at reducing infection rates in the LGBTQ population and allows us to reject the null hypothesis. The effectiveness interval for the vaccine in the LGBTQ population of 7.6%-27% is far below the approximate 50% threshold that is desired for vaccine effectiveness.
+
+### LGBTQ Conclusion and Discussion
 
 
 
 ## Druggies
+### Druggies Graphical Data
+```{r include=FALSE,echo=FALSE}
+Drugusers <- FinalData %>% filter(DrugUser=="yes")
+
+Drugusers$treatment <- factor(Drugusers$treatment, levels = c("placebo", "vaccine"))
+```
+
+```{r echo=FALSE}
+barchartGC(~infected + treatment,data=Drugusers)
+barchartGC(~infected + treatment,data=Drugusers, type="percent")
+```
+
+In the Druggies data set there was a noticeable difference to the two data sets of the male and female genders; however the Druggies data set closely parallels the LGBTQ data set. The Druggies data set actually show an increase in Covid-19 infection rates in those who received the vaccine. However similarly to all the other data sets the total numerical difference in infection rates is very small despite being a large percentage difference.
+
+### Druggies Numerical Data
+```{r echo=FALSE}
+table1 <- xtabs(~infected + treatment, data=Drugusers)
+rowPerc(table1)
+colPerc(table1)
+```
+
+The somewhat large increase in percent in infection rates within the Druggies sub-population between those who received the drug and those who received the placebo(3.1% of those given the actual vaccine were infected versus 0.4% of those who received the placebo) is a very poor initial indication that the vaccine effectively decreases overall infection rates of Covid-19 in the Druggies sub-population in concurrence with what was observed in the graphical data. It also closely follows with the similarities that were seen between the LGBTQ graphical data and Druggies.
+
+### Druggies Inferential Data
+```{r echo=FALSE}
+chisq.test(table1)
+fisher.test(table1)
+
+
+fish <- fisher.test(table1)
+
+
+low=(fish$conf.int[1]/(fish$conf.int[1] + 1))*100
+hi=(fish$conf.int[2]/(fish$conf.int[2] + 1))*100
+options(digits=2)
+
+low
+hi
+```
+
+### Druggies Conclusion and Discussion
+
 
 
 # Overall Results and Conclusions
+
